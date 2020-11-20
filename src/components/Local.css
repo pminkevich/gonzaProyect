@@ -1,0 +1,73 @@
+.card{
+margin: 5px;
+
+}
+.btnClose{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.headModal{
+  margin: 10px;
+}
+.headModal h1{
+  position: absolute;
+  left: 5px;
+}
+.headModal h3{
+ text-align: center;
+}
+.headModal h4{
+ color: rgba(0,0,0,0.4);
+ font-size: 13px;
+ text-align: right;
+}
+.stars{
+text-align: center;
+}
+
+/* .mapa{
+  width: 350px;
+  height: 250px;
+} */
+@media(max-width:750px){
+.ventanaLocal{
+  position: fixed;
+  width: 90%;
+  height: 420px;
+  top: 20%;
+  left: 0;
+  right: 0;
+ margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 0 3px 3px rgba(0,0,0,0.2);
+  opacity: 0.94;     
+  border-radius: 5px;
+
+}
+}
+@media(min-width:751px){
+.ventanaLocal{
+  position: fixed;
+  width: 90%;
+  height: 420px;
+  top: 20%;
+  left: 0;
+  right: 0;
+ margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 0 3px 3px rgba(0,0,0,0.2);
+  opacity: 0.94;     
+  border-radius: 5px;
+
+}
+
+}
