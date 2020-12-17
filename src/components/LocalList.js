@@ -1,59 +1,44 @@
-import { React, useEffect, useState } from 'react'
+import { React, useEffect } from 'react'
 import { Local, LocalHome } from './Local'
-import { Link, useRouteMatch, Switch, Route, useLocation, useParams } from "react-router-dom";
+import { useRouteMatch, Switch, Route, useLocation, useParams } from "react-router-dom";
 import './Locales.css'
-import { db, auth } from './../firebase'
-import { useSelector, useDispatch } from 'react-redux'
+
 import { Spinner } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { getLocales } from '../redux/localesDuck'
+
+
+
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-const LocalList = () => {
+const LocalList = ({ locales, loading, getLocales }) => {
   let match = useRouteMatch();
   let query = useQuery();
   let { tipo } = useParams();
 
   //estado local
-  const [spinner, setSpinner] = useState(true);
+  //const [spinner, setSpinner] = useState(true);
   //globar
-  const localList = useSelector((state) => { return state.localList })
 
-  const dispatch = useDispatch()
+
+  const localList = locales
 
   useEffect(() => {
 
-    setSpinner(true);
+    getLocales(tipo)
 
-    const query = db.collection('locales').where('tipo', '==', tipo);
-
-    query.get().then(res => {
-      let locales = res.docs.map(doc => doc.data());
-
-      dispatch({
-        type: 'SET_LOCAL_LIST',
-        payload: locales
-      })
-
-      setSpinner(false);
-      //setLocal(locales)
-      //console.log(locales)
-    })
-
-  }, [tipo, dispatch])
+  }, [tipo])
 
 
 
   return (
 
     <div className="locales">
-
-
-
-
       {
 
-        spinner ? <Spinner animation="border" role="status" /> :
+        loading ? <Spinner animation="border" role="status" /> :
           localList.map(({ imagen, tipo, nombre, geoposicion, descripcion, stars }) => {
 
             return (
@@ -95,4 +80,12 @@ const LocalList = () => {
   )
 }
 
-export default LocalList
+const mapState = (state) => {
+  return {
+    locales: state.locales.list,
+    loading: state.locales.loading
+  }
+}
+
+
+export default connect(mapState, { getLocales })(LocalList)
